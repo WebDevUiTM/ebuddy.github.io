@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="icon" type="image/png" href="image/PMM.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            margin-top: 170px;
+            margin-left: 95px;
+        }
+        .container-w1 { 
+            width: 60%; 
+            height: 100%;
+            background-image: url("image/background3.png");
+            background-position: top;
+            background-repeat: no-repeat;
+            background-size: 840px 642px;
+        }
+        .container-w2 {
+            width: 40%;
+            height: 100%;
+            background-color: white;
+        }
+        .container-1 {
+            background-color: black;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+            width: 600px;
+            text-align: center;
+            margin-top: 0px;
+            margin-left: 85px;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        h1 { 
+            font-family: "Times New Roman", Times, serif;
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+            color: black;
+        }
+        h2 {
+            color: black;
+        }
+        .error { color: red; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; text-align: left; }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button { padding: 10px; background-color: #28a745; color: white; border: none; width: 70%; }
+        a { display: block; text-align: center; margin-top: 10px; }
+        img {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-w1"></div>
+<div class="container-w2">
+    <div class="container">
+        <h2>Login</h2>
+        <p id="error" class="error" style="display: none;"></p>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="user_id">Staff ID:</label>
+                <input type="text" name="user_id" id="user_id" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <a href="signup.php">Sign up</a>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#login-form').on('submit', function(event) {
+            event.preventDefault();
+            var user_id = $('#user_id').val();
+            var password = $('#password').val();
+
+            $.ajax({
+                url: 'https://your-server.com/login.php', // Update this URL to your server
+                type: 'POST',
+                data: {
+                    user_id: user_id,
+                    password: password
+                },
+                success: function(response) {
+                    if (response.success) {
+                        window.location.href = 'dashboard.php'; // Update this if necessary
+                    } else {
+                        $('#error').text(response.error).show();
+                    }
+                },
+                error: function() {
+                    $('#error').text('An error occurred. Please try again.').show();
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
